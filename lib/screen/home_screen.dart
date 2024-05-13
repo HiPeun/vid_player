@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   XFile? video;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-
-  Widget renderVideo(){
+  Widget renderVideo() {
     return Center(
       child: CustomVideoPlayer(
         video: video!,
+        onNewVideoPressed: onNewVideoPressed,
       ),
     );
   }
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _LoGo(
-            onTap: onLogoTap,
+            onTap: onNewVideoPressed,
           ),
           SizedBox(height: 30.0),
           _AppName(),
@@ -46,17 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void onLogoTap() async {
+  void onNewVideoPressed() async {
     final video = await ImagePicker().pickVideo(
       source: ImageSource.gallery,
     );
 
-
-    if(video != null){
+    if (video != null) {
       setState(() {
         this.video = video;
       });
-
     }
   }
 
